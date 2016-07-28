@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.example.Objects.UserObject" table="users" lazy="false">
+        <id name="uid" type="int" column="uid">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="string"/>
+        <property name="userName" column="username" type="string"/>
+        <property name="password" column="password" type="string"/>
+        <property name="lastLogin" column="last_login" type="timestamp"/>
+        <property name="lastPracticeDate" column="last_practice_date" type="timestamp"/>
+        <many-to-one name="currentSubject" column="subject_oid"
+                     class="com.example.Objects.SubjectObject"/>
+        <property name="userType" column="user_type" type="int"/>
+        <many-to-one name="supervisor" column="supervisor_uid"
+                     class="com.example.Objects.UserObject"/>
+        <property name="active" type="boolean">
+            <column name="active" default="false"/>
+        </property>
+    </class>
+
+    <class name="com.example.Objects.SubjectObject" table="subjects" lazy="false">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="name"/>
+        <property name="description" column="description" type="string"/>
+        <property name="priority" column="priority" type="int"/>
+        <property name="link" column="link" type="string"/>
+    </class>
+
+
+    <class name="com.example.Objects.UserScoreObject" table="users_scores">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <property name="uid" type="int" column="uid"/>
+        <property name="score" column="score" type="long"/>
+    </class>
+
+    <class name="com.example.Objects.TutorObject" table="tutors">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="name"/>
+        <property name="telephoneNumber" column="telephone_number" type="string"/>
+        <property name="email" type="string" column="email"/>
+        <property name="pricePerHour" type="int">
+            <column name="price_per_hour" default="0"/>
+        </property>
+        <property name="activePayment" type="boolean" column="active_payment"/>
+    </class>
+
+    <class name="com.example.Objects.UserQuestionObject" table="user_questions">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <many-to-one name="user" column="uid"
+                     class="com.example.Objects.UserObject" not-null="true"/>
+        <many-to-one name="subject" column="subject_oid"
+                     class="com.example.Objects.SubjectObject" not-null="true"/>
+        <property name="level" type="int" column="level"/>
+        <property name="questionType" type="int" column="question_type"/>
+        <property name="success" type="boolean" column="success"/>
+    </class>
+
+    <class name="com.example.Objects.NameObject" table="names">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <property name="name" type="string" column="name"/>
+        <property name="male" type="boolean" column="male"/>
+    </class>
+
+    <class name="com.example.Objects.ExplanationVideoObject" table="explanation_videos">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <many-to-one name="requestingUser" column="uid"
+                     class="com.example.Objects.UserObject" not-null="true"/>
+        <many-to-one name="subject" column="subject_oid"
+                     class="com.example.Objects.SubjectObject" not-null="true"/>
+        <property name="name" type="string" column="name"/>
+        <property name="questionText" type="string" column="question_text"/>
+        <property name="requestTime" type="timestamp" column="request_time"/>
+        <property name="uploadTime" type="timestamp" column="upload_time"/>
+        <property name="uploaded" type="boolean" column="uploaded"/>
+    </class>
+
+    <class name="com.example.Objects.ConfigObject" table="config">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <property name="configKey" type="string" column="config_key"/>
+        <property name="configValue" type="string" column="config_value"/>
+    </class>
+
+    <class name="com.example.Objects.SentMessageObject" table="sent_messages">
+        <id name="oid" type="int" column="oid">
+            <generator class="native"/>
+        </id>
+        <many-to-one name="sender" column="sender_uid"
+                     class="com.example.Objects.UserObject" not-null="true"/>
+        <property name="title" type="string" column="title"/>
+        <property name="details" type="string" column="details"/>
+        <property name="sendingDate" type="timestamp" column="sending_date"/>
+        <property name="messageRead" type="boolean" column="message_read"/>
+
+    </class>
+</hibernate-mapping>

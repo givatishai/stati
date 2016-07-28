@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$siteName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+<body>
+
+<div id="wrapper">
+    #parse( "main_navbar.vm" )
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                #parse("practice_sidebar.vm")
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2>$querstionHeader</h2>
+                        <p>
+                            $questionBody
+                        </p>
+                        <div class="text-center">
+                            <a href="#"><i class="fa fa-plus"></i>$useHelpingMaterials</a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <!-- the comment box -->
+                <div class="well">
+                    <h4>Ask for guidiance</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <hr>
+            </div>
+        </div>
+        #parse ("tmpl_sandbox2.vm")
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+#* @vtlvariable name="probability" type="com.example.Objects.ProbabilityQuestionObject" *#
+
+#set($questionIndex = $index)
+<div id="wizardSteps$questionIndex" class="container wizard-steps" style="width: 100%; margin-top: 50px; margin-bottom: 50px; display: none">
+    #if($probability.getSteps().size() == 1)
+        #set($rowDivision = 12)
+    #elseif($probability.getSteps().size() == 2)
+        #set($rowDivision = 6)
+    #elseif($probability.getSteps().size() == 3)
+        #set($rowDivision = 4)
+    #elseif($probability.getSteps().size() == 4)
+        #set($rowDivision = 3)
+    #elseif($probability.getSteps().size() == 6)
+        #set($rowDivision = 2)
+    #elseif($probability.getSteps().size() == 12)
+        #set($rowDivision = 1)
+    #end
+
+    <div class="stepwizard">
+        <div class="progress center-block">
+            <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 13%">
+            </div>
+        </div>
+        <div class="stepwizard-row setup-panel">
+            #set($i = 1)
+            #foreach ($s in $probability.getSteps().get($questionIndex))
+                <div steps-wizard="progress_$questionIndex_$i" class="stepwizard-step col-xs-$rowDivision">
+                    <a href="#step-$i" type="button" class="btn #if($i==1) btn-success #else btn-default #end btn-circle" #if($i!=1) disabled="disabled" #end>$i</a>
+                    <p><small>STEP $i</small></p>
+                </div>
+                #set($i = $i+1)
+            #end
+        </div>
+    </div>
+
+    <form role="form">
+        #set($i = 1)
+        #foreach ($s in $probability.getSteps().get($questionIndex))
+            <div class="panel panel-primary setup-content wizard-form-step" id="step-$i" steps-wizard="form_$questionIndex_$i">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Step $i</h3>
+                </div>
+                <div class="panel-body">
+                    STEP $i
+                    </br>
+                    $s
+
+                    <!--<button class="btn btn-primary nextBtn pull-right" type="button">Next <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>-->
+                    <nav>
+                        <ul class="pager">
+                            #if($i!=1)
+                                <li class="previous"><a class="prevBtn" href="#"><span aria-hidden="true">&larr;</span> Previous</a></li>
+                            #end
+                            <li class="next"><a question-index="$questionIndex" step-index="$i" #if($i== $probability.getSteps().get($questionIndex).size()) id="finishButton" #end  class="nextBtn" href="#"> #if($i!= $probability.getSteps().get($questionIndex).size()) Next #else Finish #end <span aria-hidden="true">&rarr;</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            #set($i = $i+1)
+        #end
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var navListItems = $('div.setup-panel div a'),
+                    allWells = $('.setup-content'),
+                    allNextBtn = $('.nextBtn'),
+                    allPrevBtn = $('.prevBtn');
+
+            allWells.hide();
+
+            navListItems.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                    $item = $(this);
+                var nextStepWizard = $(this).text();
+
+                #set($i = 1)
+                #set($j = 0)
+                #set($size = $probability.getSteps().get($questionIndex).size())
+                #set($sizeMinusOne = $size - 1)
+                #set($interval = 100/$sizeMinusOne)
+                #foreach($s in $probability.getSteps().get($questionIndex))
+                    if(nextStepWizard == $i)
+                        $('.stepwizard .progress-bar').animate({width:'$j%'},0);
+                    #set($i = $i + 1)
+                    #set($j = $j + $interval)
+                #end
+
+                if (!$item.hasClass('disabled')) {
+                    navListItems.removeClass('btn-success').addClass('btn-default');
+                    //navListItems.addClass('btn-default');
+                        $item.addClass('btn-success');
+                    allWells.hide();
+                        $target.show();
+                        $target.find('input:eq(0)').focus();
+                }
+            });
+
+            allNextBtn.click(function () {
+                var curStep = $(this).closest(".setup-content"),
+                        curStepBtn = curStep.attr("id"),
+                        nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                        curInputs = curStep.find("input[type='text'],input[type='url']"),
+                        isValid = true;
+
+                $(".form-group").removeClass("has-error");
+                for (var i = 0; i < curInputs.length; i++) {
+                    if (!curInputs[i].validity.valid) {
+                        isValid = false;
+                        $(curInputs[i]).closest(".form-group").addClass("has-error");
+                    }
+                }
+
+                if (isValid) {
+                    nextStepWizard.removeAttr('disabled').trigger('click');
+                }
+            });
+
+
+            allPrevBtn.click(function () {
+                var curStep = $(this).closest(".setup-content"),
+                        curStepBtn = curStep.attr("id"),
+                        prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
+
+                prevStepWizard.removeAttr('disabled').trigger('click');
+            });
+
+            $('div.setup-panel div a.btn-success').trigger('click');
+        });
+
+        $("#finishButton").click(function () {
+            $("#wizardSteps$questionIndex").fadeOut(1000);
+        });
+
+
+    </script>
+
+</div>

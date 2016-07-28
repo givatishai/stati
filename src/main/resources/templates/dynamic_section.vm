@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-default ">
+            <div class="panel-body alert-info">
+                <div style="text-align: center">
+                    <i class="fa fa-truck fa-5x"></i>
+                </div>
+                <div style="text-align: center">
+                    <p class="alerts-heading">83%</p>
+                    <p class="alerts-text">Correct Answers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default ">
+            <div class="panel-body alert-info">
+                <div style="text-align: center">
+                    <i class="fa fa-money fa-5x"></i>
+                </div>
+                <div style="text-align: center">
+                    <p class="alerts-heading">20</p>
+                    <p class="alerts-text">Unsolved Questions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-default ">
+            <div class="panel-body alert-info">
+                <div style="text-align: center">
+                    <i class="fa fa-twitter fa-5x"></i>
+                </div>
+                <div style="text-align: center">
+                    <p class="alerts-heading">11</p>
+                    <p class="alerts-text">Levels To go</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

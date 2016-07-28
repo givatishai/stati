@@ -1,0 +1,102 @@
+<div class="panel panel-primary col-sm-12">
+    <div class="panel-heading">
+        <span class="panel-title"><i class="fa fa-bar-chart-o"></i> $countUnreadMessages Pending Messages</span>
+        <button id="showPendingMessagesTable" type="button" class="btn btn-default" style="margin-left: 10px">Show</button>
+    </div>
+    <div class="panel-body" id="pendingMessagesTable" style="display: none">
+        <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+            <div class="sui-gridcontent">
+                <table class="sui-table sui-hover sui-selectable">
+                    <tbody>
+                    <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                        <th class="sui-cell">
+                                              <span class="col-sm-7">
+                                                Sender Uid
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Sender UserName
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Title
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Details
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Date
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                             Read
+                                        </span>
+                        </th>
+                        #set ($alt = !$alt)
+                    </tr>
+                        #foreach ($message in $unreadMessages)
+                        <tr id="pendingMessage$Message.oid" class="#if ($alt) sui-row #else sui-alt-row #end ">
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $message.sender.uid
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $message.sender.userName
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $message.title
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $message.details
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            #if($message.sendingDate)$message.sendingDate#end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                          ## #if($user.supervisor)$user.supervisor.uid#end
+                                          ##    <select class="newSupervisor" uid="$user.uid"">
+                                            ##  #foreach($user in $supervisors)
+                                              ##    <option value=$user.uid>
+                                                ##      $user.Name
+                                                  ##  </option>
+                                              ###end
+                                              ##</select>
+                                           #if(!$message.readMessage)FALSE#end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-10">
+                                          <div class="form-group" id="readMessage" $oid=$message.oid>
+                                                  <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" value="">
+                                                                  Mark As Read
+                                                            </label>
+                                                  </div>
+                                        </span>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

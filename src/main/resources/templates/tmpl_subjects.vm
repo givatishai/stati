@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$siteName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+<body>
+
+<div id="wrapper">
+    #parse( "main_navbar.vm" )
+    <div class="container">
+        <div class="panel panel-primary col-sm-10">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Subjects</h3>
+            </div>
+            <div class="panel-body">
+                <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+                    <div class="sui-gridcontent">
+                        <table class="sui-table sui-hover sui-selectable">
+                            <colgroup>
+                                <col style="width:70px">
+                            </colgroup>
+                            <tbody>
+                                #foreach ($subject in $subjects)
+                                <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                                    <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $subject.getName()
+                                            #if ($subject.getOid() == $user.getCurrentSubject().getOid())
+                                                <span class="label label-default">You Are Here</span>
+                                            #end
+                                        </span>
+                                        <button type="button" class="btn btn-success col-sm-2" style="margin-right: 15px">
+                                            <a style="color: white" href="$subject.getLink()">
+                                                Practice
+                                            </a>
+                                        </button>
+                                        <button type="button" class="btn btn-info col-sm-2">
+                                            <a style="color: white" href="/analyze?subjectOid=$subject.getOid()">
+                                                Analyze
+                                            </a>
+                                        </button>
+                                    </td>
+                                    #set ($alt = !$alt)
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>
+
+

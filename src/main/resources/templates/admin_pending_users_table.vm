@@ -1,0 +1,100 @@
+<div class="panel panel-primary col-sm-12">
+    <div class="panel-heading">
+        <span class="panel-title"><i class="fa fa-bar-chart-o"></i> $countPendingUsers Pending Users</span>
+        <button id="showPendingUsersTable" type="button" class="btn btn-default" style="margin-left: 10px">Show</button>
+    </div>
+    <div class="panel-body" id="pendingUsersTable" style="display: none">
+        <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+            <div class="sui-gridcontent">
+                <table class="sui-table sui-hover sui-selectable">
+                    <tbody>
+                    <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                        <th class="sui-cell">
+                                              <span class="col-sm-7">
+                                                User Type
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Name
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            User Name
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Password
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Supervisor
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                             Change Supervisor
+                                        </span>
+                        </th>
+                        <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                             Set Active
+                                        </span>
+                        </th>
+                        #set ($alt = !$alt)
+                    </tr>
+                        #foreach ($user in $pendingUsers)
+                        <tr id="pendingUser$user.uid" class="#if ($alt) sui-row #else sui-alt-row #end ">
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            #if ($user.userType == 1) Teacher #elseif($user.userType == 0) Basic #end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.name
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.userName
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.password
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            #if($user.supervisor.name)$user.supervisor.name#end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                          ## #if($user.supervisor)$user.supervisor.uid#end
+                                              <select class="newSupervisor" uid="$user.uid"">
+                                              #foreach($user in $supervisors)
+                                                  <option value=$user.uid>
+                                                      $user.Name
+                                                    </option>
+                                              #end
+                                              </select>
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span class="col-sm-10">
+                                          <button class="setActive" uid="$user.uid" style="height:40px;width:120px"> Set Active</button>
+                                        </span>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

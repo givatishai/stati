@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>$siteName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+
+</head>
+<body>
+
+    #if ($error)
+<div class="row">
+    <div class="col-lg-3">
+        <div class="alert alert-success alert-dismissable">
+              $errorMessage #end
+        </div>
+    </div>
+</div>
+
+<div class="form-style-5">
+    <form id="loginForm" action="/login" method="post">
+        <fieldset>
+            <legend>Login</legend>
+            <input type="text" name="loginUserName" id="loginUserName" placeholder="Your Email"/>
+            <input type="password" name="loginPassword" id="loginPassword" placeholder="Your Password"/>
+        </fieldset>
+        <input type="submit" value="Login" id="loginButton"/>
+    </form>
+</div>
+
+
+<br/>
+<div class="form-style-5">
+    <form id="signupForm", action="/signup" method="post" onsubmit="return validateUserSignupForm()">
+        <fieldset>
+            <legend>Signup Form</legend>
+            <input type="text" name="signupName" id="signupName" placeholder="Your Name *"/>
+            <div  class="alert alert-danger" id="signupNameAlert" style="padding: 0px!important; display: none;"> You must enter your name </div>
+
+            <input type="text" name="signupUserName" id="signupUserName" placeholder="Your Username *"/>
+            <div  class="alert alert-danger" id="signupUserNameAlert" style="padding: 0px!important; display: none;"> You must enter user name </div>
+
+            <input type="password" name="signupPassword" id="signupPassword" placeholder="Your Password *"/>
+            <div  class="alert alert-danger" id="signupPasswordAlert" style="padding: 0px!important; display: none;"> You must enter password </div>
+
+            <input type="password" name="signupRepeatPassword" id="signupRepeatPassword" placeholder="Your Password Again *"/>
+            <div  class="alert alert-danger" id="signupRepeatPasswordAlert" style="padding: 0px!important; display: none;"> You must enter your password again </div>
+            <div  class="alert alert-danger" id="signupConfirmPasswordAlert" style="padding: 0px!important; display: none;"> Password confirmation failed </div>
+
+        </fieldset>
+        <input type="submit" id="signupButton" value="Sign Up"/>
+    </form>
+</div>
+
+##<form id="signupForm", action="/signup" method="post">
+##    <input type="text", name="signupName" id="signupName"/>
+##    <input type="text", name="signupUserName" id="signupUserName"/>
+##    <input type="password" name="signupPassword" id="signupPassword"/>
+##   <input type="password" name="signupRepeatPassword" id="signupRepeatPassword"/>
+##    <input type="submit" id="signupButton"/>
+##</form>
+<p class="fake">
+    test
+</p>
+</body>
+</html>

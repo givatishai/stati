@@ -1,0 +1,161 @@
+#* @vtlvariable name="subjects" type="java.util.ArrayList<com.example.Objects.SubjectObject>" *#
+#* @vtlvariable name="user" type="com.example.Objects.UserObject" *#
+#* @vtlvariable name="probability" type="com.example.Objects.ProbabilityQuestionObject" *#
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$siteName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+<style>
+    body {
+        margin-top: 30px;
+    }
+
+    .stepwizard-step p {
+        margin-top: 0px;
+        color: #666;
+    }
+
+    .stepwizard-row {
+        display: table-row;
+    }
+
+    .stepwizard {
+        display: table;
+        width: 100%;
+        position: relative;
+    }
+
+    .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
+        opacity: 1 !important;
+        color: #bbb;
+    }
+
+    .progress {
+        top: 13px;
+        bottom: 0;
+        position: absolute;
+        content: " ";
+        width: 74%;
+        left: 13%;
+        height: 4px;
+        z-index: 0;
+    }
+
+    .stepwizard-step {
+        display: table-cell;
+        text-align: center;
+        position: relative;
+    }
+
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+    }
+</style>
+<body>
+
+<div id="wrapper">
+    #parse( "main_navbar.vm" )
+    <input id="activeQuestion" hidden value="1"/>
+    <div id="page-wrapper">
+        <div id="page-wrapper">
+
+
+
+            <div class="panel panel-primary col-sm-10">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Subjects</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+                        <div class="sui-gridcontent">
+                            <table class="sui-table sui-hover sui-selectable">
+                                <colgroup>
+                                    <col style="width:70px">
+                                </colgroup>
+                                <tbody>
+                                <tr class=" sui-alt-row  ">
+
+                                    <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Probability - Beginners
+                                                                                    </span>
+                                        <button type="button" class="btn btn-success col-sm-2" style="margin-right: 15px">
+                                            <a style="color: white" href="/probability">
+                                                Practice
+                                            </a>
+                                        </button>
+                                        <button type="button" class="btn btn-info col-sm-2">
+                                            <a style="color: white" href="/analyze?subjectOid=1">
+                                                Analyze
+                                            </a>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class=" sui-row  ">
+                                    <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Probability - Intermediate
+                                                                                            <span class="label label-default">You Are Here</span>
+                                                                                    </span>
+                                        <button type="button" class="btn btn-success col-sm-2" style="margin-right: 15px">
+                                            <a style="color: white" href="$subject.getLink()">
+                                                Practice
+                                            </a>
+                                        </button>
+                                        <button type="button" class="btn btn-info col-sm-2">
+                                            <a style="color: white" href="/analyze?subjectOid=2">
+                                                Analyze
+                                            </a>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class=" sui-alt-row  ">
+                                    <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Probability - Experts
+                                                                                    </span>
+                                        <button type="button" class="btn btn-success col-sm-2" style="margin-right: 15px">
+                                            <a style="color: white" href="$subject.getLink()">
+                                                Practice
+                                            </a>
+                                        </button>
+                                        <button type="button" class="btn btn-info col-sm-2">
+                                            <a style="color: white" href="/analyze?subjectOid=3">
+                                                Analyze
+                                            </a>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+</div>
+</body>
+#parse("steps_script.vm")
+</html>

@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Information</h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">Subject</div>
+            <div class="panel-body">
+                $beforeSubject.getName() <br/>
+                $activeSubject.getName() <br/>
+                $afterSubject.getName()
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Time</div>
+            <div class="panel-body">
+                00:00:00
+            </div>
+        </div>
+        <hr />
+        <div class="panel panel-default">
+            <div class="panel-heading">Hint</div>
+            <div class="panel-body">
+                Get a hint about the solution.
+            </div>
+        </div>
+        <hr />
+    </div>
+</div>

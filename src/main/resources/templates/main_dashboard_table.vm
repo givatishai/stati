@@ -1,0 +1,72 @@
+#* @vtlvariable name="top3" type="java.util.ArrayList<com.example.Objects.UserScoreObject>" *#
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Leading Scorers</h3>
+    </div>
+    <div class="panel-body">
+        <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+            <div class="sui-gridheader">
+                <table class="sui-table sui-non-selectable">
+                    <colgroup>
+                        <col style="width:70px">
+                        <col>
+                        <col>
+                        <col style="width:270px">
+                    </colgroup>
+                    <thead>
+                    <tr class="sui-columnheader">
+                        <th data-field="id" class="sui-headercell">
+                            <a href="#" class="sui-link"></a>
+                        </th>
+                        <th data-field="name" class="sui-headercell">
+                            <a href="#" class="sui-link">Name</a>
+                        </th>
+                        <th data-field="company" class="sui-headercell">
+                            <a href="#" class="sui-link">????</a>
+                        </th>
+                        <th data-field="email" class="sui-headercell">
+                            <a href="#" class="sui-link">Score</a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="sui-hide">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="sui-gridcontent">
+                <table class="sui-table sui-hover sui-selectable">
+                    <colgroup>
+                        <col style="width:70px">
+                        <col>
+                        <col>
+                        <col style="width:270px">
+                    </colgroup>
+                    <tbody>
+                        #set($alt = false)
+                        #set($counter = 1)
+
+                        #foreach ($top in $top3)
+                        <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                            <td class="sui-cell">$counter</td>
+                            <td class="sui-cell">$top.uid</td>
+                            <td class="sui-cell">?????</td>
+                            <td class="sui-cell">$top.score</td>
+                            #set($alt = !$alt)
+                            #set($counter = $counter+1)
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

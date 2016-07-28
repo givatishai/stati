@@ -1,0 +1,15 @@
+<b>show a scalar value</b>
+<br/>
+number = ${number}
+<br/>
+<b>loop through a list</b>
+#foreach($n in $list)
+$n
+<br/>
+#end
+<b>loop through a map</b>
+<br/>
+#foreach($n in ${map.entrySet()})
+$n.key = $n.value
+<br/>
+#end

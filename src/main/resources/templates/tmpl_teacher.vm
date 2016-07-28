@@ -1,0 +1,146 @@
+#* @vtlvariable name="subjects" type="java.util.ArrayList<com.example.Objects.SubjectObject>" *#
+#* @vtlvariable name="user" type="com.example.Objects.UserObject" *#
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$siteName</title>
+    #parse( "css.vm" )
+    #parse( "scripts.vm" )
+</head>
+<body>
+
+<div id="wrapper">
+    #parse( "main_navbar.vm" )
+
+    <div id="page-wrapper">
+        <div class="container">
+            <div class="panel panel-primary col-sm-11">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Students</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+                        <div class="sui-gridcontent">
+                            <table class="sui-table sui-hover sui-selectable">
+                                <colgroup>
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px">
+                                    <col style="width:100px"
+                                </colgroup>
+                                <tbody>
+                                <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           User Type
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Name
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            User Name
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Password
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Last Login
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                           Supervisor
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Subject
+                                        </span>
+                                    </th>
+                                    <th class="sui-cell">
+                                        <span class="col-sm-7">
+                                            Analyze
+                                        </span>
+                                    </th>
+                                    #set ($alt = !$alt)
+                                </tr>
+                                    #foreach ($user in $monitored)
+                                    <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.userType
+                                        </span>
+                                        </td>
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.name
+                                        </span>
+                                        </td>
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.userName
+                                        </span>
+                                        </td>
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            $user.password
+                                        </span>
+                                        </td>
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            #if($user.lastLogin){$user.lastLogin}#end
+                                        </span>
+                                        </td>
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            #if($user.supervisorUid.userName){$user.supervisorUid.userName}#end
+                                        </span>
+                                        </td>
+                                        <td class="sui-cell">
+                                        <span class="col-sm-7">
+                                            #if($user.subjectOid.userName){$user.subjectOid.userName}#end
+                                        </span>
+                                        </td>
+
+                                        <td class="sui-cell">
+                                        <span class="col-sm-10">
+                                             Analize $user.name
+                                        </span>
+                                            <button type="button" class="btn btn-info col-sm-10">
+                                                <a style="color: white" href="/AnalyzeStudents">
+                                                    #set ($alt = !$alt) Analyze
+                                                </a>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                    #end
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- /#wrapper -->
+</body>
+</html>

@@ -1,0 +1,124 @@
+<div class="panel panel-primary col-sm-12">
+    <div class="panel-heading">
+        <span class="panel-title"><i class="fa fa-bar-chart-o"></i>$countRegularUsers Regular Users</span>
+        <button id="showRegularUsersTable" type="button" class="btn btn-default" style="margin-left: 10px">Show</button>
+    </div>
+    <div class="panel-body" style="display: none" id="regularUsersTable">
+        <div id="shieldui-grid1" class="sui-grid sui-grid-core">
+            <div class="sui-gridcontent">
+                <table class="sui-table sui-hover sui-selectable">
+                    <tbody>
+                    <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                        <th class="sui-cell" style="width: 6%">
+                                              <span>
+                                                Type
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 6%">
+                                        <span>
+                                           Name
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 8%">
+                                        <span>
+                                            User Name
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 9%">
+                                        <span>
+                                           Password
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 10%">
+                                        <span>
+                                            Last Login
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 9%">
+                                        <span>
+                                           Supervisor
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 15%">
+                                        <span>
+                                             Change Supervisor
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 17%">
+                                        <span>
+                                           Subject
+                                        </span>
+                        </th>
+                        <th class="sui-cell" style="width: 12%">
+                                        <span>
+                                           Login
+                                        </span>
+                        </th>
+                        #set ($alt = !$alt)
+                    </tr>
+                        #foreach ($user in $regularUsers)
+                        <tr class="#if ($alt) sui-row #else sui-alt-row #end ">
+                            <td class="sui-cell">
+                                        <span>
+                                            #if ($user.userType == 1) Teacher #elseif($user.userType == 0) Basic #end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                            $user.name
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                            $user.userName
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                            $user.password
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                            #if($user.lastLogin)$user.lastLogin#end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                            #if($user.supervisor.name)$user.supervisor.name#end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                          ## #if($user.supervisor)$user.supervisor.uid#end
+                                              <select class="newSupervisor" uid="$user.uid"">
+                                              #foreach($supervisor in $supervisors)
+                                                  <option value=$supervisor.uid #if ($user.supervisor.uid==$supervisor.uid) selected #end>
+                                                      $supervisor.Name
+                                                    </option>
+                                              #end
+                                              </select>
+                                        </span>
+                            </td>
+
+                            <td class="sui-cell">
+                                        <span>
+                                            #if($user.currentSubject) $user.currentSubject.name #end
+                                        </span>
+                            </td>
+                            <td class="sui-cell">
+                                        <span>
+                                          <button style="height:40px;width:120px"
+                                                  onclick="loginAsUser('$user.userName',$user.password,true)"> Login as $user.name</button>
+                                        </span>
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
