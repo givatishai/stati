@@ -29,4 +29,9 @@ public interface GeneralManager {
     public void addNewMessage(UserObject sender,String message, String title);
 
     public void markMessageAsRead(SentMessageObject message);
+
+    public SentMessageObject loadSentMessageObject (Integer oid);
+
+
+
 }

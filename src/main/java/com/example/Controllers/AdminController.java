@@ -1,5 +1,6 @@
 package com.example.Controllers;
 
+import com.example.Objects.SentMessageObject;
 import com.example.Objects.UserObject;
 import com.example.Services.GeneralManager;
 import com.example.Services.QuestionManager;
@@ -60,15 +61,15 @@ public class AdminController {
             model.addAttribute("regularUsers", userManager.getAllRegularUsers());
             model.addAttribute("countRegularUsers", userManager.getAllRegularUsers().size());
             model.addAttribute("supervisors", supervisors);
-            model.addAttribute("pendingUsers",pendingUsers);
-            model.addAttribute("countPendingUsers",pendingUsers.size());
-            model.addAttribute("unreadMessages",generalManager.getUnreadMessages());
-            model.addAttribute("countUnreadMessages",generalManager.getUnreadMessages().size());
+            model.addAttribute("pendingUsers", pendingUsers);
+            model.addAttribute("countPendingUsers", pendingUsers.size());
+            model.addAttribute("unreadMessages", generalManager.getUnreadMessages());
+            model.addAttribute("countUnreadMessages", generalManager.getUnreadMessages().size());
             model.addAttribute("pageName", "admin");
             //}
             //   else {
             //     response.sendRedirect("/dashboard");
-;
+            ;
 //                }
 
             // } else {
@@ -125,7 +126,7 @@ public class AdminController {
         response.setContentType("application/json; charset=UTF-8");
         JSONObject JObject = new JSONObject();
         JObject.put("error", error);
-        JObject.put("uid",pendingUserUid);
+        JObject.put("uid", pendingUserUid);
         response.getWriter().print(JObject);
 
     }
@@ -162,17 +163,17 @@ public class AdminController {
     public String messageSent(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model, String title, String message) {
         boolean error = false;
         try {
-            //    if (uid != null) {
-            UserObject user = userManager.loadUser(uid);
-            utils.setDefaultParameters(request, response, model);
-            model.addAttribute("user", user);
+            if (uid != null) {
+                UserObject user = userManager.loadUser(uid);
+                utils.setDefaultParameters(request, response, model);
+                model.addAttribute("user", user);
 
-            generalManager.addNewMessage(user,message,title);
+                generalManager.addNewMessage(user, message, title);
 
-            // } else {
-            //   response.sendRedirect("/home");
-            // error = true;
-            //}
+            } else {
+                response.sendRedirect("/home");
+                error = true;
+            }
 
 
         } catch (Exception e) {
@@ -186,33 +187,21 @@ public class AdminController {
     }
 
     @RequestMapping({"/mark_as_read"})
-    public String markAsR(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model, String messageId) {
+    public void markAsRead(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model, String messageId) throws Exception {
         boolean error = false;
         try {
-            //    if (uid != null) {
-            UserObject user = userManager.loadUser(uid);
-            utils.setDefaultParameters(request, response, model);
-            model.addAttribute("user", user);
-
-
-
-            // } else {
-            //   response.sendRedirect("/home");
-            // error = true;
-            //}
-
-
+            SentMessageObject message = generalManager.loadSentMessageObject(Integer.valueOf(messageId));
+            generalManager.markMessageAsRead(message);
         } catch (Exception e) {
             error = true;
         }
-        if (error) {
-            return "tmpl_dashboard";
-        } else {
-            return "tmpl_contact_us";
-        }
+
+        response.setContentType("application/json; charset=UTF-8");
+        JSONObject JObject = new JSONObject();
+        JObject.put("error", error);
+        JObject.put("oid", messageId);
+        response.getWriter().print(JObject);
     }
-
-
 
 
 }

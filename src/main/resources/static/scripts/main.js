@@ -14,21 +14,30 @@ $(document).ready(function () {
 
     }
 
-    $("#readMessage").click(function () {
-        if(($this).is(':checked')) {
+    $(".readMessage").click(function () {
+        if(($(this)).is(':checked')) {
             var messageId = $(this).attr("oid");
         }
         $.post("/mark_as_read.json?", "messageId=" + messageId, markAsReadResponse);
         
     });
 
+    function markAsReadResponse(data, status) {
+        var oid = data.oid;
+        var elementId = "#pendingMessage" + oid;
+
+        if (data.error) {
+            alert("Failure");
+        } else {
+            $(elementId).fadeOut("slow");
+
+        }
+    }
 
     $("#submitMessageButton").click(function () {
         var title = $("#messageTitle").val();
         var message = $("#messageDetails").val();
-        $(location).attr('href',"/message_sent?title=" + title + "&&message=" + message);
-        
-      //  window.location.replace("/message_sent?title=" + title + "&&message=" + message);
+        window.location="/message_sent?title=" + title + "&&message=" + message;
 
     });
     

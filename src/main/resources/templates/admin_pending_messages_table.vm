@@ -1,7 +1,8 @@
 <div class="panel panel-primary col-sm-12">
     <div class="panel-heading">
         <span class="panel-title"><i class="fa fa-bar-chart-o"></i> $countUnreadMessages Pending Messages</span>
-        <button id="showPendingMessagesTable" type="button" class="btn btn-default" style="margin-left: 10px">Show</button>
+        <button id="showPendingMessagesTable" type="button" class="btn btn-default" style="margin-left: 10px">Show
+        </button>
     </div>
     <div class="panel-body" id="pendingMessagesTable" style="display: none">
         <div id="shieldui-grid1" class="sui-grid sui-grid-core">
@@ -42,7 +43,7 @@
                         #set ($alt = !$alt)
                     </tr>
                         #foreach ($message in $unreadMessages)
-                        <tr id="pendingMessage$Message.oid" class="#if ($alt) sui-row #else sui-alt-row #end ">
+                        <tr id="pendingMessage$message.oid" class="#if ($alt) sui-row #else sui-alt-row #end ">
                             <td class="sui-cell">
                                         <span class="col-sm-7">
                                             $message.sender.uid
@@ -70,23 +71,16 @@
                             </td>
                             <td class="sui-cell">
                                         <span class="col-sm-7">
-                                          ## #if($user.supervisor)$user.supervisor.uid#end
-                                          ##    <select class="newSupervisor" uid="$user.uid"">
-                                            ##  #foreach($user in $supervisors)
-                                              ##    <option value=$user.uid>
-                                                ##      $user.Name
-                                                  ##  </option>
-                                              ###end
-                                              ##</select>
-                                           #if(!$message.readMessage)FALSE#end
+                                              #if(!$message.readMessage)FALSE#end
                                         </span>
                             </td>
                             <td class="sui-cell">
                                         <span class="col-sm-10">
-                                          <div class="form-group" id="readMessage" $oid=$message.oid>
+                                          <div class="form-group">
                                                   <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" value="">
+                                                                <input type="checkbox" class="readMessage"
+                                                                       oid=$message.oid>
                                                                   Mark As Read
                                                             </label>
                                                   </div>

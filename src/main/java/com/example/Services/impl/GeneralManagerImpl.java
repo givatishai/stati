@@ -63,4 +63,9 @@ public class GeneralManagerImpl implements GeneralManager {
         persist.save(message);
 
     }
+
+    public SentMessageObject loadSentMessageObject (Integer oid) {
+        return (SentMessageObject) persist.load(SentMessageObject.class, oid);
+    }
+
 }
