@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by Sigal on 5/29/2016.
  */
+
 public class AnalyzeObject {
     private int totalQuestions;
     private int successCount;
