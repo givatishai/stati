@@ -1,5 +1,6 @@
 package com.example.Controllers;
 
+import com.example.Objects.ExplanationVideoObject;
 import com.example.Objects.SentMessageObject;
 import com.example.Objects.UserObject;
 import com.example.Services.GeneralManager;
@@ -51,20 +52,24 @@ public class AdminController {
             utils.setDefaultParameters(request, response, model);
             long countUsers = userManager.countUsers();
             List<UserObject> pendingUsers = userManager.getAllPendingUsers();
-            long countNotUploadedVideos = questionManager.notUplodedExplanationVideo();
+            List<ExplanationVideoObject> pendingVideos = questionManager.getNotUplodedExplanationVideo();
             List<UserObject> supervisors = userManager.getAllSupervisors();
+            List<UserObject> regularUsers = userManager.getAllRegularUsers();
+            List<SentMessageObject> unreadMessages = generalManager.getUnreadMessages();
 
             model.addAttribute("user", user);
             model.addAttribute("countUsers", countUsers);
-            model.addAttribute("countNotUploadedVideos", countNotUploadedVideos);
-            model.addAttribute("pendingVideos", questionManager.getNotUplodedExplanationVideo());
-            model.addAttribute("regularUsers", userManager.getAllRegularUsers());
-            model.addAttribute("countRegularUsers", userManager.getAllRegularUsers().size());
+            model.addAttribute("regularUsers",regularUsers);
+            model.addAttribute("countRegularUsers", regularUsers.size());
+           ;model.addAttribute("pendingVideos", pendingVideos);
+            model.addAttribute("countNotUploadedVideos", pendingVideos.size());
+
             model.addAttribute("supervisors", supervisors);
             model.addAttribute("pendingUsers", pendingUsers);
             model.addAttribute("countPendingUsers", pendingUsers.size());
-            model.addAttribute("unreadMessages", generalManager.getUnreadMessages());
-            model.addAttribute("countUnreadMessages", generalManager.getUnreadMessages().size());
+            model.addAttribute("unreadMessages", unreadMessages);
+            model.addAttribute("countUnreadMessages", unreadMessages.size());
+            model.addAttribute("showNumOfUnreadMessages",unreadMessages.size());
             model.addAttribute("pageName", "admin");
             //}
             //   else {
@@ -123,10 +128,13 @@ public class AdminController {
         } catch (Exception e) {
             error = true;
         }
+        long countPendingUsers = userManager.getAllPendingUsers().size();
+
         response.setContentType("application/json; charset=UTF-8");
         JSONObject JObject = new JSONObject();
         JObject.put("error", error);
         JObject.put("uid", pendingUserUid);
+        JObject.put("numOfPendingUsers",countPendingUsers);
         response.getWriter().print(JObject);
 
     }
@@ -186,20 +194,24 @@ public class AdminController {
         }
     }
 
-    @RequestMapping({"/mark_as_read"})
+    @RequestMapping({"/mark_as_read.json"})
     public void markAsRead(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model, String messageId) throws Exception {
         boolean error = false;
         try {
             SentMessageObject message = generalManager.loadSentMessageObject(Integer.valueOf(messageId));
             generalManager.markMessageAsRead(message);
+
         } catch (Exception e) {
             error = true;
         }
+       // int countUnreadMessages = generalManager.getUnreadMessages().size();
+     //   int num = Integer.valueOf(numOfUnreadMessages)-1;
 
         response.setContentType("application/json; charset=UTF-8");
         JSONObject JObject = new JSONObject();
         JObject.put("error", error);
         JObject.put("oid", messageId);
+       // JObject.put("numOfUnreadMessages",num);
         response.getWriter().print(JObject);
     }
 

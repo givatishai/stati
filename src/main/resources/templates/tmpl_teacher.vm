@@ -132,6 +132,11 @@
                                     #end
                                 </tbody>
                             </table>
+
+                                          <button class="btn btn-primary"style="height:40px;width:120px"
+                                                  onclick="addStudent('$user.uid')"> Add Student</button>
+
+
                         </div>
                     </div>
                 </div>

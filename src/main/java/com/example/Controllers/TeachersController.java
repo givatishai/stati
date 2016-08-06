@@ -39,18 +39,21 @@ public class TeachersController {
     public String teachers(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model) {
         boolean error = false;
         try {
+            utils.setDefaultParameters(request, response, model);
+            model.addAttribute("pageName", "teachers");
             if (uid != null) {
                 UserObject user = userManager.loadUser(uid);
                 if (user.getUserType() == USER_TYPE_TEACHER) {
-                    utils.setDefaultParameters(request, response, model);
+
                     List<UserObject> monitored = userManager.getMonitoredUsers(uid);
                     model.addAttribute("monitored", monitored);
-                    model.addAttribute("pageName", "teachers");
 
-            //    } else {
-            //        response.sendRedirect("/dashboard");
+              }
+                model.addAttribute("user",user);
+                    // else {
+     //               response.sendRedirect("/dashboard");
 
-                }
+//                }
 
            // } else {
           //      response.sendRedirect("/home");

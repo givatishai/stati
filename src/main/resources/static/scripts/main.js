@@ -25,11 +25,17 @@ $(document).ready(function () {
     function markAsReadResponse(data, status) {
         var oid = data.oid;
         var elementId = "#pendingMessage" + oid;
+        var numOfUnreadMessages = data.numOfUnreadMessages;
+        var num =   $("#showNumOfUnreadMessages").attr("num");
+        num--;
+
 
         if (data.error) {
             alert("Failure");
         } else {
             $(elementId).fadeOut("slow");
+            $("#showNumOfUnreadMessages").attr("num",num);
+            $("#showNumOfUnreadMessages").text(num + " Pending Messages");
 
         }
     }
@@ -91,11 +97,12 @@ $(document).ready(function () {
     function setActiveResponse(data, status) {
         var uid = data.uid;
         var elementId = "#pendingUser" + uid;
-
+        var numOfPendingUsers = data.numOfPendingUsers;
         if (data.error) {
             alert("Failure");
         } else {
             $(elementId).fadeOut("slow");
+            $("#showNumOfPendingUsers").text(numOfPendingUsers + " Pending Users");
 
         }
 
@@ -444,6 +451,10 @@ function initWizard() {
 
 function loginAsUser(userName, password,admin) {
     window.location = "/login?loginUserName=" + userName + "&&loginPassword=" + password + "&&admin=" + admin ;
+}
+
+    function addStudent(uid) {
+    window.location = "/home?loginUserName=" + userName + "&&loginPassword=" + password + "&&admin=" + admin ;
 }
 
 function analyzeStudent(uid, subjectOid) {

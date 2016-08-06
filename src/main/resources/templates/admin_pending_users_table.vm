@@ -1,6 +1,6 @@
 <div class="panel panel-primary col-sm-12">
     <div class="panel-heading">
-        <span class="panel-title"><i class="fa fa-bar-chart-o"></i> $countPendingUsers Pending Users</span>
+        <span class="panel-title" id="showNumOfPendingUsers"><i class="fa fa-bar-chart-o"></i> $countPendingUsers Pending Users</span>
         <button id="showPendingUsersTable" type="button" class="btn btn-default" style="margin-left: 10px">Show</button>
     </div>
     <div class="panel-body" id="pendingUsersTable" style="display: none">

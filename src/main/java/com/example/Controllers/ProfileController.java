@@ -56,4 +56,32 @@ public class ProfileController {
     }
 
     }
+
+
+    @RequestMapping("/settings")
+    public String settings(@CookieValue("uid") Integer uid, HttpServletRequest request, HttpServletResponse response, Model model) {
+        boolean error = false;
+        try {
+            utils.setDefaultParameters(request, response, model);
+            if (uid != null) {
+                UserObject user = userManager.loadUser(uid);
+                model.addAttribute("user", user);
+            } else {
+                response.sendRedirect("/home");
+                error = true;
+            }
+
+        }
+        catch (Exception e) {
+            error = true;
+        }
+
+        if (error) {
+            return "tmpl_dashboard";
+        } else {
+            return "tmpl_settings";
+        }
+
+    }
+
 }

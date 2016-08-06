@@ -37,9 +37,10 @@ public class HomeController {
     private UserManager userManager;
 
     @RequestMapping({"/", "/home"})
-    public String showHomePage(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String showHomePage(HttpServletRequest request, HttpServletResponse response, Model model,String userId) {
         boolean error = false;
         try {
+            utils.setDefaultParameters(request, response, model);
             Cookie[] cookies = request.getCookies();
             Integer uid = null;
             for (Cookie cookie : cookies) {
@@ -47,11 +48,14 @@ public class HomeController {
                     uid = Integer.valueOf(cookie.getName());
                 }
             }
+            if (userId!=null)
+                model.addAttribute("teacherId",userId);
             if (uid != null) {
                 response.sendRedirect("/dashboard");
-            } else {
-                utils.setDefaultParameters(request, response, model);
             }
+                // else {
+           //     utils.setDefaultParameters(request, response, model);
+          //  }
         } catch (Exception e) {
             error = true;
         }

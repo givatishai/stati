@@ -1,6 +1,6 @@
 <div class="panel panel-primary col-sm-12">
     <div class="panel-heading">
-        <span class="panel-title"><i class="fa fa-bar-chart-o"></i> $countUnreadMessages Pending Messages</span>
+        <span class="panel-title" id="showNumOfUnreadMessages" num="$countUnreadMessages"><i class="fa fa-bar-chart-o"></i>$countUnreadMessages Pending Messages</span>
         <button id="showPendingMessagesTable" type="button" class="btn btn-default" style="margin-left: 10px">Show
         </button>
     </div>
@@ -79,7 +79,7 @@
                                           <div class="form-group">
                                                   <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" class="readMessage"
+                                                                <input type="checkbox" class="readMessage" num="$countUnreadMessages"
                                                                        oid=$message.oid>
                                                                   Mark As Read
                                                             </label>
