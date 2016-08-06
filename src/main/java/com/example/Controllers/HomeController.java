@@ -102,7 +102,7 @@ public class HomeController {
             if (hasText(signupName) && hasText(signupUserName) && hasText(signupPassword) && hasText(signupRepeatPassword)) {
                 if (signupPassword.equals(signupRepeatPassword)) {
                     userManager.addNewUser(signupName, signupUserName, signupPassword, USER_TYPE_BASIC);
-
+ 
                 } else {
                     error = true;
                 }
